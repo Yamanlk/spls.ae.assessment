@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/events-hub-ingesters/src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/events-hub-ingesters/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/events-hub-ingesters",
+  "projects": {
+    "events-hub-ingesters": {
+      "type": "application",
+      "root": "apps/events-hub-ingesters",
+      "entryFile": "main",
+      "sourceRoot": "apps/events-hub-ingesters/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/events-hub-ingesters/tsconfig.app.json"
+      }
+    },
+    "service-bus-ingesters": {
+      "type": "application",
+      "root": "apps/service-bus-ingesters",
+      "entryFile": "main",
+      "sourceRoot": "apps/service-bus-ingesters/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/service-bus-ingesters/tsconfig.app.json"
+      }
+    }
+  }
+}
