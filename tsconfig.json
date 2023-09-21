@@ -17,6 +17,9 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {}
+    "paths": {
+      "@app/clients": ["libs/clients/src"],
+      "@app/clients/*": ["libs/clients/src/*"]
+    }
   }
 }

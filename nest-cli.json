@@ -27,6 +27,24 @@
       "compilerOptions": {
         "tsConfigPath": "apps/service-bus-ingesters/tsconfig.app.json"
       }
+    },
+    "event-hubs-sender": {
+      "type": "application",
+      "root": "apps/event-hubs-sender",
+      "entryFile": "main",
+      "sourceRoot": "apps/event-hubs-sender/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/event-hubs-sender/tsconfig.app.json"
+      }
+    },
+    "clients": {
+      "type": "library",
+      "root": "libs/clients",
+      "entryFile": "index",
+      "sourceRoot": "libs/clients/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/clients/tsconfig.lib.json"
+      }
     }
   }
 }
