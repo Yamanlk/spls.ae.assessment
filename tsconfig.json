@@ -18,8 +18,18 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@app/clients": ["libs/clients/src"],
-      "@app/clients/*": ["libs/clients/src/*"]
+      "@app/clients": [
+        "libs/clients/src"
+      ],
+      "@app/clients/*": [
+        "libs/clients/src/*"
+      ],
+      "@app/dto": [
+        "libs/dto/src"
+      ],
+      "@app/dto/*": [
+        "libs/dto/src/*"
+      ]
     }
   }
 }

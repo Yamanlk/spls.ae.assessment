@@ -7,9 +7,9 @@ export class EventHubsSenderService {
     private readonly eventHubProducerClient: EventHubProducerClient,
   ) {}
 
-  async send() {
+  async send(body: any) {
     const batch = await this.eventHubProducerClient.createBatch();
-    batch.tryAdd({ body: 'passwordless First event' });
+    batch.tryAdd({ body });
 
     await this.eventHubProducerClient.sendBatch(batch);
   }

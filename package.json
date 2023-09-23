@@ -21,7 +21,12 @@
   },
   "dependencies": {
     "@azure/event-hubs": "^5.11.1",
+    "@azure/eventhubs-checkpointstore-blob": "^1.0.1",
     "@azure/identity": "^3.3.0",
+    "@azure/service-bus": "^7.9.1",
+    "@azure/storage-blob": "^12.16.0",
+    "@nestjs/class-transformer": "^0.4.0",
+    "@nestjs/class-validator": "^0.13.4",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^10.0.0",
@@ -75,7 +80,8 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@app/clients(|/.*)$": "<rootDir>/libs/clients/src/$1"
+      "^@app/clients(|/.*)$": "<rootDir>/libs/clients/src/$1",
+      "^@app/dto(|/.*)$": "<rootDir>/libs/dto/src/$1"
     }
   }
 }

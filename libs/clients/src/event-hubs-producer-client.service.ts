@@ -1,5 +1,5 @@
 import { EventHubProducerClient } from '@azure/event-hubs';
-import { Logger, OnModuleDestroy } from '@nestjs/common';
+import { Injectable, Logger, OnModuleDestroy } from '@nestjs/common';
 
 /**
  * @description don't use directly, instead inject and use {@link EventHubProducerClient},
@@ -20,6 +20,7 @@ import { Logger, OnModuleDestroy } from '@nestjs/common';
  *   },
  * }
  */
+@Injectable()
 export class EventHubProducerClientHooked
   extends EventHubProducerClient
   implements OnModuleDestroy

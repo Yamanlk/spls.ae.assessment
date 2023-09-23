@@ -1,5 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { Body, Controller, Post } from '@nestjs/common';
+import { ApiBody, ApiResponse } from '@nestjs/swagger';
 import { EventHubsSenderService } from './event-hubs-sender.service';
 
 @Controller()
@@ -8,9 +8,10 @@ export class EventHubsSenderController {
     private readonly eventHubsSenderService: EventHubsSenderService,
   ) {}
 
-  @Get('send')
+  @Post('send')
   @ApiResponse({})
-  send(): Promise<void> {
-    return this.eventHubsSenderService.send();
+  @ApiBody({ schema: { type: 'object' } })
+  send(@Body() body: any): Promise<void> {
+    return this.eventHubsSenderService.send(body);
   }
 }
