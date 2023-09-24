@@ -1,0 +1,10 @@
+name: splsae
+services:
+  db:
+    container_name: splsae-db
+    image: mongo:6
+    command: mongod --replSet rs0 --bind_ip localhost,db
+    volumes:
+      - ./volumes/db/rs.key:/var/rs.key
+    ports:
+      - 27017:27017

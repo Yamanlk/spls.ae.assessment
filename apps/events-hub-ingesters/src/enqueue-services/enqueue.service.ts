@@ -1,13 +1,11 @@
 import { InjectServiceBusSender } from '@app/clients';
-import { EventHubsEvent, MessageType } from '@app/dto';
+import { ErrorMessageDTO, EventHubsEvent, MessageType } from '@app/dto';
 import { ServiceBusSender } from '@azure/service-bus';
 import { plainToClass } from '@nestjs/class-transformer';
 import { validate } from '@nestjs/class-validator';
 import { Injectable, Logger } from '@nestjs/common';
 
-type EnqueueServiceEvent =
-  | EventHubsEvent
-  | { type: 'error'; event: any; errors?: any };
+type EnqueueServiceEvent = EventHubsEvent | ErrorMessageDTO;
 
 @Injectable()
 export class EnqueueService {
@@ -70,7 +68,9 @@ export class EnqueueService {
     let batch = await sender.createMessageBatch();
 
     for (const message of messages) {
-      if (!batch.tryAddMessage({ body: message })) {
+      if (
+        !batch.tryAddMessage({ body: message, contentType: 'application/json' })
+      ) {
         // Send the current batch as it is full and create a new one
         this.logger.debug(
           `sending ${batch.count} messages to ${sender.entityPath}`,
@@ -81,7 +81,12 @@ export class EnqueueService {
         );
         batch = await sender.createMessageBatch();
 
-        if (!batch.tryAddMessage({ body: message })) {
+        if (
+          !batch.tryAddMessage({
+            body: message,
+            contentType: 'application/json',
+          })
+        ) {
           // this error cannot be handled gracefully since the message
           // cannot be sent to the error queue or any other queue
           throw new Error('Message too big to fit in a batch');
@@ -123,7 +128,7 @@ export class EnqueueService {
   ): Promise<EnqueueServiceEvent> {
     if (typeof rawEvent !== 'object') {
       return {
-        event: rawEvent,
+        source: rawEvent,
         type: 'error',
       };
     }
@@ -134,7 +139,7 @@ export class EnqueueService {
 
     if (errors.length > 0) {
       return {
-        event,
+        source: rawEvent,
         type: 'error',
         errors,
       };
