@@ -19,6 +19,10 @@ Once the data is consumed, it will be processed and queued in the correct servic
 
 Once queued the message will be delivered to one of the insatnces node instances which will eventaully write the messasge to mongodb.
 
+## Data Life Cycle
+
+<img src="./assets/spls.ae.message-cycle.drawio.svg">
+
 ## Setup .env File and The Corresponding Azure Resources
 
 Copy .env.example file and fill the empty variables with the correct values.
