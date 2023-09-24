@@ -72,6 +72,7 @@ To run `apps/events-hub-ingesters` you need the following roles:
 
 - `Azure Event Hubs Data Receiver` (required to receive events)
 - `Azure Service Bus Data Sender` (required to send messages)
+- `Storage Blob Data Contributor` (required to save checkpoints)
 
 To run `apps/service-bus-ingesters` you need the following roles:
 
@@ -98,6 +99,50 @@ $ pnpm start events-hub-ingesters
 
 # apps/service-bus-ingesters
 $ pnpm start service-bus-ingesters
+```
+
+## Run Every Thing In Docker
+
+You can go with the easy option and run everything in docker.
+
+First of all let's build the images
+
+```bash
+# builds events-hub-ingesters
+docker build -t splsae/events-hub-ingesters . --target events-hub-ingesters
+# builds event-hubs-sender
+docker build -t splsae/event-hubs-sender . --target event-hubs-sender
+# builds service-bus-ingesters
+docker build -t splsae/service-bus-ingesters . --target service-bus-ingesters
+```
+
+Once everything is built, go ahead and copy .env.docker.example and tweek the values.
+
+```bash
+cp .env.docker.example .env.docker
+```
+
+> Note that the container will not have azure cli so make sure to provide another method to authenticate the application, i used `AZURE_TENANT_ID`, `AZURE_CLIENT_ID` and `AZURE_CLIENT_SECRET`.
+
+Now let's start the database:
+
+```bash
+# runs the database
+docker compose -f ./docker-compose.dev.yaml up db -d
+# initiate replica set
+pnpm run docker:db:initiate-rs
+```
+
+You should see the following output:
+
+```bash
+{ ok: 1 }
+```
+
+Now you can start the other services:
+
+```bash
+docker compose -f ./docker-compose.dev.yaml up service-bus-ingesters event-hubs-sender events-hub-ingesters
 ```
 
 ## Sending Events

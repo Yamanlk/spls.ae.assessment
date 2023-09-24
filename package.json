@@ -17,7 +17,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./apps/spls.ae.assessment/test/jest-e2e.json"
+    "test:e2e": "jest --config ./apps/spls.ae.assessment/test/jest-e2e.json",
+    "docker:db:initiate-rs": "docker exec -it splsae-db mongosh --eval \"rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'db'}]})\""
   },
   "dependencies": {
     "@azure/event-hubs": "^5.11.1",

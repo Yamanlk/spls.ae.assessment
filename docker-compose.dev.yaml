@@ -4,7 +4,22 @@ services:
     container_name: splsae-db
     image: mongo:6
     command: mongod --replSet rs0 --bind_ip localhost,db
-    volumes:
-      - ./volumes/db/rs.key:/var/rs.key
     ports:
       - 27017:27017
+  service-bus-ingesters:
+    container_name: splsae-service-bus-ingesters
+    image: splsae/service-bus-ingesters
+    volumes:
+      - .env.docker:/app/.env
+  event-hubs-sender:
+    container_name: splsae-event-hubs-sender
+    image: splsae/event-hubs-sender
+    volumes:
+      - .env.docker:/app/.env
+    ports:
+      - 3000:3000
+  events-hub-ingesters:
+    container_name: splsae-events-hub-ingesters
+    image: splsae/events-hub-ingesters
+    volumes:
+      - .env.docker:/app/.env
