@@ -168,7 +168,7 @@ You can use one of the templates below to test each case.
 
 ```json
 {
-  "type": "type_a",
+  "type": "type_b",
   "propertyB": "somevalue"
 }
 ```
@@ -177,7 +177,7 @@ You can use one of the templates below to test each case.
 
 ```json
 {
-  "type": "type_a",
+  "type": "type_c",
   "propertyC": "somevalue"
 }
 ```
